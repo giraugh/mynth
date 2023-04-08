@@ -1,6 +1,6 @@
 use crate::{Amplitude, Seconds};
 
-pub trait Sampleable {
+pub trait Sampleable: Send {
     fn sample(&self, at: Seconds) -> Amplitude;
 }
 
@@ -25,7 +25,7 @@ pub struct MappedSource<F: Fn(f32) -> f32> {
     pub map_fn: F,
 }
 
-impl<F: Fn(f32) -> f32> Sampleable for MappedSource<F> {
+impl<F: Fn(f32) -> f32 + Send> Sampleable for MappedSource<F> {
     fn sample(&self, at: Seconds) -> Amplitude {
         let inner_sample = self.source.sample(at);
         (self.map_fn)(inner_sample)
