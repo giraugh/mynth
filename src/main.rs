@@ -3,7 +3,7 @@ use std::{thread::sleep, time::Duration};
 use cpal::traits::StreamTrait;
 use sampleable::MapSource;
 use sampler::Sampler;
-use waves::{SawToothWave, SineWave, TriangleWave};
+use waves::SineWave;
 
 mod sampleable;
 mod sampler;
